@@ -42,6 +42,7 @@
 
 	<ItemGroup>
 		<Folder Include="Areas\Painel\Data\" />
+		<Folder Include="Areas\Painel\Views\Usuario\" />
 		<Folder Include="Controllers\" />
 		<Folder Include="Models\" />
 	</ItemGroup>
