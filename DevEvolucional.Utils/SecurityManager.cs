@@ -16,7 +16,7 @@ namespace DevEvolucional.Utils
                 byte[] randomBytes = new byte[128 / 8];
                 generator.GetBytes(randomBytes);
                 return Convert.ToBase64String(randomBytes);
-            }
+            }   
         }
 
         public static string CreateHash(string value, string salt)
