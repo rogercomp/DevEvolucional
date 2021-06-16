@@ -5,7 +5,9 @@ using DevEvolucional.Model.Entities;
 
 namespace DevEvolucional.Model.Interfaces
 {
-    class IAlunoBusiness
+    public interface IAlunoBusiness
     {
+        ResultadoDto GerarBaseAluno();
+        ResultadoDto GerarPlanilha();
     }
 }

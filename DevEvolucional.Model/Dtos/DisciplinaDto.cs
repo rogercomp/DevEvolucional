@@ -4,9 +4,9 @@ using System.Text;
 
 namespace DevEvolucional.Model.Dtos
 {
-    public class AlunoDto
+    public class DisciplinaDto
     {
-        public AlunoDto(int id, string nome)
+        public DisciplinaDto(int id, string nome)
         {
             Id = id;
             Nome = nome;
@@ -14,6 +14,5 @@ namespace DevEvolucional.Model.Dtos
 
         public int Id { get; private set; }
         public string Nome { get; private set; }
-
     }
 }

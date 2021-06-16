@@ -58,6 +58,7 @@ namespace DevEvolucional.WebApp
             });
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IAlunoBusiness, AlunoBusiness>();
             services.AddScoped<IUsuarioBusiness, UsuarioBusiness>();
         }
 

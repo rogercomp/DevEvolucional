@@ -1,19 +1,28 @@
-﻿using DevEvolucional.Model.Dtos;
+﻿using Dapper;
+using DevEvolucional.Model.Dtos;
 using DevEvolucional.Model.Entities;
 using DevEvolucional.Model.Interfaces;
 using DevEvolucional.Utils;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
+
 
 namespace DevEvolucional.Business
 {
     public class UsuarioBusiness : IUsuarioBusiness
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public UsuarioBusiness(IUnitOfWork unitOfWork)
+        private readonly IConfiguration _configuration;
+        private readonly string _connectionString;
+        public UsuarioBusiness(IUnitOfWork unitOfWork, IConfiguration configuration)
         {
             this._unitOfWork = unitOfWork;
+            _configuration = configuration;
+            _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
         public virtual UsuarioDto Autenticar(LoginDto loginDto)
@@ -45,86 +54,8 @@ namespace DevEvolucional.Business
                 });
             return query.ToList();
         }
+           
 
-        public UsuarioDto Selecionar(int id)
-        {
-            var usuario = this._unitOfWork
-                .UsuarioRepository
-                .GetById(id);
-
-            return new UsuarioDto
-            {
-                IdUsuario = usuario.IdUsuario,
-                Login = usuario.Login
-            };
-        }
-
-        public ResultadoDto GerarBaseAluno()
-        {
-
-            // Aqui tem que ler um arquivo com o s 1000 alunos
-
-            // Inserir as 9 disciplinas para os 1000 alunos
-
-            // Inserir 1 nota para cada aluno e para cada disciplina
-            
-            return new ResultadoDto
-            {
-                Sucesso = true
-            };
-        }
-
-        public ResultadoDto GerarPlanilha()
-        {
-
-            // Aqui tem que percorrea lista de alunos colocabdo as 9 disciplinas e ja setando uma nota
-         
-            return new ResultadoDto
-            {
-                Sucesso = true
-            };
-        }
-
-        public ResultadoDto Excluir(int id)
-        {
-            this._unitOfWork.UsuarioRepository.Delete(id);
-            var sucesso = this._unitOfWork.SaveChanges();
-            return new ResultadoDto
-            {
-                Sucesso = sucesso
-            };
-        }
-
-        public ResultadoDto Salvar(UsuarioDto usuarioDto)
-        {
-            var usuario = new Usuario();
-
-            if (usuarioDto.IdUsuario > 0)
-            {
-                usuario = this._unitOfWork.UsuarioRepository.GetById(usuarioDto.IdUsuario);
-
-                this._unitOfWork.UsuarioRepository.Update(usuario);
-            }
-            else
-            {                
-                var salt = SecurityManager.CreateSalt();
-                var hash = SecurityManager.CreateHash(usuarioDto.Senha, salt);
-
-                usuario = new Usuario();
-                usuario.Login = usuarioDto.Login;
-                usuario.Hash = hash;
-                usuario.Salt = salt;
-                this._unitOfWork.UsuarioRepository.Add(usuario);
-            }
-
-            var sucesso = this._unitOfWork.SaveChanges();
-            var resultado = new ResultadoDto
-            {
-                Sucesso = sucesso,
-                Id = usuario.IdUsuario
-            };
-            
-            return resultado;
-        }
+       
     }
 }

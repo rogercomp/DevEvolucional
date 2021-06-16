@@ -1,0 +1,16 @@
+﻿@model DevEvolucional.Model.Dtos.AlunoDto
+@{
+
+    var tempData = TempData["Sucesso"];
+    var sucesso = tempData.ToString() == "true" ? "Processado com sucesso" : string.Empty;
+}
+
+<div class="row">
+    <div class="col">
+        <h2 class="display-4">@ViewData["Title"]</h2>
+    </div>
+</div>
+
+<div class="panel-heading">
+    <h3 class="panel-title">Executado com Sucesso!</h3>
+</div>
