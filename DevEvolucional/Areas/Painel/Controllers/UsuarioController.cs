@@ -16,5 +16,24 @@ namespace DevEvolucional.WebApp.Areas.Painel.Controllers
         {
             this._usuarioBusiness = usuarioBusiness;
         }
+
+        public IActionResult Action1()
+        {
+            var resultado = _usuarioBusiness.GerarBaseAluno();
+
+            return Json(new ResultadoViewModel
+            {
+                Sucesso = resultado.Sucesso              
+            });
+        }
+        public IActionResult Action2()
+        {
+            var resultado = _usuarioBusiness.GerarPlanilha();
+
+            return Json(new ResultadoViewModel
+            {
+                Sucesso = resultado.Sucesso
+            });
+        }
     }
 }

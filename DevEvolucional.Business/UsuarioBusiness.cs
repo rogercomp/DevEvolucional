@@ -59,6 +59,32 @@ namespace DevEvolucional.Business
             };
         }
 
+        public ResultadoDto GerarBaseAluno()
+        {
+
+            // Aqui tem que ler um arquivo com o s 1000 alunos
+
+            // Inserir as 9 disciplinas para os 1000 alunos
+
+            // Inserir 1 nota para cada aluno e para cada disciplina
+            
+            return new ResultadoDto
+            {
+                Sucesso = true
+            };
+        }
+
+        public ResultadoDto GerarPlanilha()
+        {
+
+            // Aqui tem que percorrea lista de alunos colocabdo as 9 disciplinas e ja setando uma nota
+         
+            return new ResultadoDto
+            {
+                Sucesso = true
+            };
+        }
+
         public ResultadoDto Excluir(int id)
         {
             this._unitOfWork.UsuarioRepository.Delete(id);

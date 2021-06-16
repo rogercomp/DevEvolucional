@@ -11,6 +11,8 @@ namespace DevEvolucional.Model.Interfaces
         IEnumerable<UsuarioDto> Filtrar();
         UsuarioDto Selecionar(int id);
         ResultadoDto Excluir(int id);
+        ResultadoDto GerarBaseAluno();
+        ResultadoDto GerarPlanilha();
         ResultadoDto Salvar(UsuarioDto usuario);
     }
 }

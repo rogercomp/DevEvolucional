@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevEvolucional.WebApp", "DevEvolucional\DevEvolucional.WebApp.csproj", "{CCF8D1D3-42E4-4052-8F1D-81E7C2F73A89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevEvolucional.WebApp", "DevEvolucional\DevEvolucional.WebApp.csproj", "{CCF8D1D3-42E4-4052-8F1D-81E7C2F73A89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevEvolucional.Business", "DevEvolucional.Business\DevEvolucional.Business.csproj", "{A200283E-04EF-469A-982A-D57DA75CEBF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevEvolucional.Business", "DevEvolucional.Business\DevEvolucional.Business.csproj", "{A200283E-04EF-469A-982A-D57DA75CEBF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevEvolucional.Data", "DevEvolucional.Data\DevEvolucional.Data.csproj", "{D9E42A4F-5865-4304-BF82-93F7EEEB1E6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevEvolucional.Data", "DevEvolucional.Data\DevEvolucional.Data.csproj", "{D9E42A4F-5865-4304-BF82-93F7EEEB1E6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevEvolucional.Model", "DevEvolucional.Model\DevEvolucional.Model.csproj", "{93E2E47C-C5D1-419B-9227-20F937D83F56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevEvolucional.Model", "DevEvolucional.Model\DevEvolucional.Model.csproj", "{93E2E47C-C5D1-419B-9227-20F937D83F56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevEvolucional.Utils", "DevEvolucional.Utils\DevEvolucional.Utils.csproj", "{FC376BF2-1320-4EEF-80CE-5F78510C250B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevEvolucional.Utils", "DevEvolucional.Utils\DevEvolucional.Utils.csproj", "{FC376BF2-1320-4EEF-80CE-5F78510C250B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
