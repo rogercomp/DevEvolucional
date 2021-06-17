@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using ClosedXML.Excel;
+using Dapper;
 using DevEvolucional.Model.Dtos;
 using DevEvolucional.Model.Entities;
 using DevEvolucional.Model.Interfaces;
@@ -7,8 +8,11 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace DevEvolucional.Business
 {
@@ -27,10 +31,11 @@ namespace DevEvolucional.Business
         public ResultadoDto GerarBaseAluno()
         {
             var dir = _configuration["SaveDirFile:Path"];
+            var file = _configuration["SaveDirFile:File"];
             int counter = 0;
             string line;
 
-            System.IO.StreamReader file = new System.IO.StreamReader(dir + @"\MOCK_DATA.txt");
+            System.IO.StreamReader arquivo = new System.IO.StreamReader(dir + file);
 
             //Criando os aluno e disciplinas            
             using (var sqlConnection = new SqlConnection(_connectionString))
@@ -41,16 +46,16 @@ namespace DevEvolucional.Business
                         sqlConnection.Open();
 
                     var script = "";
-                    while ((line = file.ReadLine()) != null)
-                    { 
+                    while ((line = arquivo.ReadLine()) != null)
+                    {
                         script = line;
-                        sqlCommand.Connection = sqlConnection;                       
-                        sqlCommand.CommandText = line;                      
+                        sqlCommand.Connection = sqlConnection;
+                        sqlCommand.CommandText = line;
                         sqlCommand.ExecuteNonQuery();
                         counter++;
                     }
-                    file.Close();
-                
+                    arquivo.Close();
+
                     // Inserir 1 nota para cada aluno e para cada disciplina
                     if (sqlConnection.State == System.Data.ConnectionState.Closed)
                         sqlConnection.Open();
@@ -104,12 +109,47 @@ namespace DevEvolucional.Business
             };
         }
 
-        public ResultadoDto GerarPlanilha()
-        {            
-            return new ResultadoDto
+        public DataTable GerarPlanilha()
+        {
+            var script = "";
+
+            using (var sqlConnection = new SqlConnection(_connectionString))
             {
-                Sucesso = true
-            };
+                using (var sqlCommand = new SqlCommand())
+                {
+                    if (sqlConnection.State == System.Data.ConnectionState.Closed)
+                        sqlConnection.Open();                 
+
+                    script = "SELECT a.IdAluno, a.IdDisciplina, a.Nota, b.Nome as NomeAluno, c.Nome as NomeDisciplina " +
+                             "FROM Aluno_Disciplina a " +
+                             "INNER JOIN Aluno b ON(b.Id = a.Idaluno) " +
+                             "INNER JOIN Disciplina c ON(c.Id = a.IdDisciplina) ";
+
+                    List<Aluno_DisciplinaDto> alunoDisciplina = sqlConnection.Query<Aluno_DisciplinaDto>(script).ToList();
+
+
+                    DataTable pivotTable = alunoDisciplina.ToPivotTable(                             
+                             item => item.NomeDisciplina,
+                             item => item.NomeAluno,
+                             items => items.Any() ? items.Average(x => x.Nota) : 0);
+
+                    pivotTable.TableName = "AlunoDisciplina";
+
+                    return pivotTable;
+
+                }
+
+            }
+
+            //return new ResultadoDto
+            //{
+            //    Sucesso = true
+            //};
+        }
+
+        private void ExporttoExcel(DataTable table)
+        {
+            
         }
     }
 }

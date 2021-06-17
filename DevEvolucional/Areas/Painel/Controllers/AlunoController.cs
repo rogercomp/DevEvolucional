@@ -1,8 +1,10 @@
-﻿using DevEvolucional.Model.Dtos;
+﻿using ClosedXML.Excel;
+using DevEvolucional.Model.Dtos;
 using DevEvolucional.Model.Interfaces;
 using DevEvolucional.WebApp.Areas.Painel.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
 
 namespace DevEvolucional.WebApp.Areas.Painel.Controllers
 {
@@ -31,10 +33,24 @@ namespace DevEvolucional.WebApp.Areas.Painel.Controllers
         {
             var resultado = _alunoBusiness.GerarPlanilha();
 
-            return Json(new ResultadoViewModel
+            string fileName = "Sample.xlsx";
+            using (XLWorkbook wb = new XLWorkbook())
+            {
+                //Add DataTable in worksheet  
+                wb.Worksheets.Add(resultado);
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    wb.SaveAs(stream);
+                    //Return xlsx Excel File  
+                    return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+                }
+            }
+
+
+            /*  return Json(new ResultadoViewModel
             {
                 Sucesso = resultado.Sucesso
-            });
+            });*/
         }
     }
 }

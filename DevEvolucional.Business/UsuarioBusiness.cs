@@ -29,7 +29,7 @@ namespace DevEvolucional.Business
         {
             var usuario = this._unitOfWork
                 .UsuarioRepository
-                .Get(q => q.Login.ToLower().Equals(loginDto.Usuario))
+                .Get(q => q.Login.ToLower().Equals(loginDto.Usuario.Trim()))
                 .FirstOrDefault();
 
             if (!SecurityManager.Validate(loginDto.Senha, usuario.Salt, usuario.Hash))
